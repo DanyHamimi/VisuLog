@@ -45,6 +45,9 @@ public class CLILauncher {
                         case "--justSaveConfigFile":
                             // TODO (save command line options to a file instead of running the analysis)
                             break;
+                        case "--help":
+                            displayHelpAndExit(); // #5
+                            break;
                         default:
                             return Optional.empty();
                     }
