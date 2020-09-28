@@ -46,6 +46,17 @@ public class CLILauncher {
                             // TODO (load options from a file)
                             break;
                         case "--justSaveConfigFile":
+                        	try {
+                                File myObj = new File("ConfigFile.txt");
+                                if (myObj.createNewFile()) {
+                                System.out.println("File created: " + myObj.getName());
+                                } else {
+                                System.out.println("File already exists.");
+                                }
+                            } catch (IOException e) {
+                                System.out.println("An error occurred.");
+                                e.printStackTrace();
+                            }
                             // TODO (save command line options to a file instead of running the analysis) | DONE
                             break;
                         case "--help":
