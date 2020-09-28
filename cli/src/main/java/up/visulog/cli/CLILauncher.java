@@ -43,7 +43,10 @@ public class CLILauncher {
                             // TODO (load options from a file)
                             break;
                         case "--justSaveConfigFile":
-                            // TODO (save command line options to a file instead of running the analysis)
+                            // TODO (save command line options to a file instead of running the analysis) | DONE
+                            break;
+                        case "--help":
+                            displayHelpAndExit(); // #5
                             break;
                         default:
                             return Optional.empty();
@@ -57,8 +60,14 @@ public class CLILauncher {
     }
 
     private static void displayHelpAndExit() {
-        System.out.println("Wrong command...");
-        //TODO: print the list of options and their syntax
+        System.out.println("The correct syntax is : args='<directory> <command>=<argument> without the < >'");
+        System.out.println("For example : '. --addPlugin=countCommits'");
+        System.out.println("Below you will find a list of commands you can use.");
+        System.out.println("--addPlugin, takes and arg and makes an instance of PluginConfig.");
+        System.out.println("--loadConfigFile, load options from an external file given as arg.");
+        System.out.println("--justSaveConfigFile, will make the program not run the analysis and print command line options to a file given as arg instead.");
+        System.out.println("--help, display help and syntax in case you need it again.");
+        //TODO: print the list of options and their syntax | UPDATE : Should be done, needs testing
         System.exit(0);
     }
 }
