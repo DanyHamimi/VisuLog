@@ -10,6 +10,9 @@ import java.util.Optional;
 
 public class CLILauncher {
 
+    /*
+    *   Print the result as an html page from the arguments
+    */
     public static void main(String[] args) {
         var config = makeConfigFromCommandLineArgs(args);
         if (config.isPresent()) {
@@ -19,6 +22,9 @@ public class CLILauncher {
         } else displayHelpAndExit();
     }
 
+    /*  Analyse all the arguments and create Plugins
+    *   --addPlugin, --loadConfigFile, --justSaveConfigFile, --help
+    */
     static Optional<Configuration> makeConfigFromCommandLineArgs(String[] args) {
         var gitPath = FileSystems.getDefault().getPath(".");
         var plugins = new HashMap<String, PluginConfig>();
@@ -59,6 +65,10 @@ public class CLILauncher {
         return Optional.of(new Configuration(gitPath, plugins));
     }
 
+    /**
+     * Print an error message
+     * ( and the list of options that are available)
+    */
     private static void displayHelpAndExit() {
         System.out.println("The correct syntax is : args='<directory> <command>=<argument> without the < >'");
         System.out.println("For example : '. --addPlugin=countCommits'");
@@ -67,7 +77,6 @@ public class CLILauncher {
         System.out.println("--loadConfigFile, load options from an external file given as arg.");
         System.out.println("--justSaveConfigFile, will make the program not run the analysis and print command line options to a file given as arg instead.");
         System.out.println("--help, display help and syntax in case you need it again.");
-        //TODO: print the list of options and their syntax | UPDATE : Should be done, needs testing
         System.exit(0);
     }
 }
