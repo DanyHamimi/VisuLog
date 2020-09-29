@@ -11,6 +11,12 @@ public class TestCLILauncher {
     - run the whole program with some valid options and look whether the output has a valid format
     - run the whole program with bad command and see whether something that looks like help is printed
      */
+    
+    /*
+        Used to test if the launch options are valid or not
+        assertTrue: check if the options is valid
+        assertFalse: check if the option isn't valid
+    */ 
     @Test
     public void testArgumentParser() {
         var config1 = CLILauncher.makeConfigFromCommandLineArgs(new String[]{".", "--addPlugin=countCommits"});
