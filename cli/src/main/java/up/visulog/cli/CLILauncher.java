@@ -31,6 +31,7 @@ public class CLILauncher {
     static Optional<Configuration> makeConfigFromCommandLineArgs(String[] args) {
         var gitPath = FileSystems.getDefault().getPath(".");
         var plugins = new HashMap<String, PluginConfig>();
+        var config = new PluginConfig();
         for (var arg : args) {
             if (arg.startsWith("--")) {
                 String[] parts = arg.split("=");
@@ -43,13 +44,11 @@ public class CLILauncher {
                             // TODO: parse argument and make an instance of PluginConfig
 
                             // Let's just trivially do this, before the TODO is fixed:
-
-                            if (pValue.equals("countCommits")) plugins.put("countCommits", new PluginConfig() {
-                            });
+                            if (pValue.equals("countCommits")) plugins.put("countCommits", config);
 
                             break;
                         case "--loadConfigFile":
-                            // TODO (load options from a file)
+                            config = new PluginConfig(pValue);
                             break;
                         case "--justSaveConfigFile":
                         	try {
