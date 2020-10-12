@@ -35,12 +35,16 @@ public class CLILauncher {
                     String pValue = parts[1];
                     switch (pName) {
                         case "--addPlugin":
-                            // TODO: parse argument and make an instance of PluginConfig
-
-                            // Let's just trivially do this, before the TODO is fixed:
-                            if (pValue.equals("countCommits")) plugins.put("countCommits", config);
-
-                            break;
+                            // TODO: parse argument and make an instance of PluginConfig | Done I hope it's working as expected
+                            if (pValue.equals("countCommits")) {
+                                config = new PluginConfig(pValue);
+                                plugins.put("countCommits", new PluginConfig() {});
+                            } else {
+                                throw new IllegalArgumentException("Not a valid argument: "+ pValue);
+                            }
+                            /* Let's just trivially do this, before the TODO is fixed:
+                            if (pValue.equals("countCommits")) plugins.put("countCommits", new PluginConfig() {});
+                            break;*/
                         case "--loadConfigFile":
                             config = new PluginConfig(pValue);
                             break;
@@ -59,7 +63,7 @@ public class CLILauncher {
                             // TODO (save command line options to a file instead of running the analysis) | DONE
                             break;
                         case "--help":            // Case HELP 
-                            displayHelpAndExit(); // Lanch displayHelpAndExit
+                            displayHelpAndExit(); // Launch displayHelpAndExit
                             break;                
                         default:
                             return Optional.empty();
