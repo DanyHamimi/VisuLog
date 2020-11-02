@@ -37,7 +37,7 @@ public class CLILauncher {
                         case "--addPlugin":
                             // TODO: parse argument and make an instance of PluginConfig | Done I hope it's working as expected
                             if (pValue.equals("countCommits")) {
-                                config = new PluginConfig(pValue);
+                                //config = new PluginConfig(pValue);    //TODO : FIX THIS , it is causing the "Error: can't load file: countCommits"
                                 plugins.put("countCommits", new PluginConfig() {});
                             } else {
                                 throw new IllegalArgumentException("Not a valid argument: "+ pValue);
@@ -46,7 +46,7 @@ public class CLILauncher {
                             if (pValue.equals("countCommits")) plugins.put("countCommits", new PluginConfig() {});
                             break;*/
                         case "--loadConfigFile":
-                            config = new PluginConfig(pValue);
+                            //config = new PluginConfig(pValue); Fix this too, like at line 40 
                             break;
                         case "--justSaveConfigFile":
                         	try {
@@ -62,9 +62,9 @@ public class CLILauncher {
                             }
                             // TODO (save command line options to a file instead of running the analysis) | DONE
                             break;
-                        case "--help":            // Case HELP 
+                        case "--help":            // Case HELP
                             displayHelpAndExit(); // Launch displayHelpAndExit
-                            break;                
+                            break;
                         default:
                             return Optional.empty();
                     }
