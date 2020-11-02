@@ -34,7 +34,7 @@ Visulog contains the following modules:
 - a command line program that calls the other modules using the provided command line parameters
 - a shared module for configuration object definitions
 
-###Java Class
+### Java Class
 Analyze:
 
 -AnalyzePlugin.java is an interface for other java class which has two methodes, result as String or as Html Div.
@@ -43,7 +43,7 @@ Analyze:
 
 -AnalyzeResult put all result in a arrylist and have methode to display as string and html
 
--Analyze create list of plugins (not sure of it)
+-Analyze create list of plugins 
 
 Cli:
 
@@ -51,9 +51,9 @@ Cli:
 
 Config:
 
--Configuration.java path too git commits and plugins
+-Configuration.java git path and config for plugins
 
--PluginConfig.java an interface (not usable yet) which is setting Key into Value?
+-PluginConfig.java an interface (not usable yet) which is setting Key into Value    
 
 
 ## Usage
