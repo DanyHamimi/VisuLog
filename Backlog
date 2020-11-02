@@ -29,4 +29,12 @@ Merged by:
 
 Week 13/10 -> 03/11 | Goal -> implement graph to html and add backlog
 Commit: #24 Put backlog on gitlab
-Merged by:
+Merged by: Dany
+
+Commit: Implement CanvasJS to html
+Merged by: Dany
+Comit accepted by Kaabeche Rayane
+
+Commit: Find the error while doing ./gradlew run --args='. --addPlugin=countCommits'
+Merged by: Rayane
+Comit accepted by HAMIMI Dany
