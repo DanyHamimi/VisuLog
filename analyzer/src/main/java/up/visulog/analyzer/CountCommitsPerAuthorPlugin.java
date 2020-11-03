@@ -54,7 +54,7 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         @Override
         public String getResultAsHtmlDiv() {
             StringBuilder html = new StringBuilder("<!DOCTYPE HTML><html><head>");
-            html.append("\"<script src=\"https://canvasjs.com/assets/script/canvasjs.min.js\"></script>\"");
+            html.append("<script src=\"https://canvasjs.com/assets/script/canvasjs.min.js\"></script>");
             html.append("<script type=\"text/javascript\">");
             html.append("window.onload = function () { var chart = new CanvasJS.Chart(\"chartContainer\", {title:{ text: \"Commits per author:\"},data: [{type: \"pie\",dataPoints: [");
             for (var item : commitsPerAuthor.entrySet()) {
