@@ -52,7 +52,32 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         }
 
         @Override
-        public String getResultAsHtmlDiv() {
+        public String getResultAsHtmlList() {
+            StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
+            for (var item : commitsPerAuthor.entrySet()) {
+                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+            }
+            html.append("</ul></div>");
+            try {
+                File myObj = new File("index.html"); // create an html file
+                if (myObj.createNewFile()) {
+                    System.out.println("HTML File created: " + myObj.getName());
+                    System.out.println("The html file has been created in the client folder.");
+                } else {
+                    System.out.println("File already exists.");
+                }
+                FileWriter myWriter = new FileWriter("index.html");// write inside the html file
+                myWriter.write(html.toString());
+                myWriter.close();
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+            return html.toString();
+        }
+
+        @Override
+        public String getResultAsHtmlCycleDiagram() {
             StringBuilder html = new StringBuilder("<!DOCTYPE HTML><html><head>");
             html.append("<script src=\"https://canvasjs.com/assets/script/canvasjs.min.js\"></script>");
             html.append("<script type=\"text/javascript\">");

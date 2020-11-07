@@ -19,6 +19,6 @@ public class AnalyzerResult {
     }
 
     public String toHTML() {
-        return "<html><body>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur) + "</body></html>";
+        return "<html><body>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlList).reduce("", (acc, cur) -> acc + cur) + "</body></html>";
     }
 }

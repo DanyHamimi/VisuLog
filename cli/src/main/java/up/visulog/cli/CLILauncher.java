@@ -23,7 +23,10 @@ public class CLILauncher {
         if (config.isPresent()) {
             var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
-            System.out.println(results.toHTML());
+            System.out.println(results.toString());
+
+            //TODO: check user parameters and if user want to save report - save to appropriate format
+            
         } else displayHelpAndExit();
     }
 

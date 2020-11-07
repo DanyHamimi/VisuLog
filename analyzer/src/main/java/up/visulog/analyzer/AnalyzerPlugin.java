@@ -5,7 +5,9 @@ import java.lang.module.Configuration;
 public interface AnalyzerPlugin {
     interface Result {
         String getResultAsString();
-        String getResultAsHtmlDiv();
+        String getResultAsHtmlList();
+        String getResultAsHtmlCycleDiagram();
+        //String getResultAsHtmlBarDiagram();
     }
 
     /**
