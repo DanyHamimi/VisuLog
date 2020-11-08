@@ -57,7 +57,7 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         }
         
         @Override
-        public String getResultsAsListe() {
+        public String getResultsAsListe() {      // used for console output
             String Ret = "";
             for (var item : commitsPerAuthor.entrySet())
             {
@@ -67,7 +67,7 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         }
 
         @Override
-        public String getResultAsHtmlList() {
+        public String getResultAsHtmlList() { 
             StringBuilder html = new StringBuilder("<!DOCTYPE HTML><html><head><title>Commits count per author</title></head><body><div>Commits per author: <ul>");
             for (var item : commitsPerAuthor.entrySet()) {
                 html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
@@ -79,13 +79,33 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         @Override
         public String getResultAsHtmlCycleDiagram() {
             StringBuilder html = new StringBuilder("<!DOCTYPE HTML><html><head>");
-            html.append("<script src=\"https://canvasjs.com/assets/script/canvasjs.min.js\"></script>");
-            html.append("<script type=\"text/javascript\">");
-            html.append("window.onload = function () { var chart = new CanvasJS.Chart(\"chartContainer\", {title:{ text: \"Commits per author:\"},data: [{type: \"pie\",dataPoints: [");
+            html.append("<meta charset=\"UTF-8\">");
+            html.append("<script>");
+            html.append("window.onload = function() {\n" +
+                    "var chart = new CanvasJS.Chart(\"chartContainer\", {\n" +
+                    "\tanimationEnabled: true,\n" +
+                    "\ttitle: {\n" + "\t\ttext: \"Commits per author\"\n" + "\t},\n" +
+                    "\tdata: [{\n" +
+                    "\t\ttype: \"pie\",\n" +
+                    "\t\tstartAngle: 240,\n" +
+                    "\t\tindexLabel: \"{label} \",\n" +
+                    "\t\tdataPoints: [");
             for (var item : commitsPerAuthor.entrySet()) {
-                html.append("{ label: \"").append(item.getKey()).append("\" , y:").append(item.getValue()).append("  },");
+                html.append("\t\t{ y: \"").append(item.getValue()).append("\" , label:\"").append(item.getKey()).append("\"  },\n");
             }
-            html.append("] } ] }); chart.render(); } </script> </head> <body> <div id=\"chartContainer\" style=\"height: 600px; width: 100%;\"></div> </body> </html>");
+
+            html.deleteCharAt(html.length()-1); //delete last "\n"
+            html.deleteCharAt(html.length()-1); //delete last ","
+
+            html.append("\t\t] } ] });\n" +
+                    "chart.render();\n" + "}\n" +
+                    "</script>\n" +
+                    "</head>\n" +
+                    "<body>\n" +
+                    "<div id=\"chartContainer\" style=\"height: 600px; width: 100%; margin: 0px auto;\"></div>\n" +
+                    "<script src=\"../CanvasJS/canvasjs.min.js\"></script>\n" +
+                    "</body>\n" +
+                    "</html>");
             return html.toString();
         }
     }
