@@ -42,37 +42,37 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
     static class Result implements AnalyzerPlugin.Result {
         private final Map<String, Integer> commitsPerAuthor = new HashMap<>();
 
-        Map<String, Integer> getCommitsPerAuthor() {
+        Map<String, Integer> getCommitsPerAuthor(){
             return commitsPerAuthor;
+        }
+
+        @Override
+        public String getPluginName(){
+            return "CommitsPerAuthor";
         }
 
         @Override
         public String getResultAsString() {
             return commitsPerAuthor.toString();
         }
+        
+        @Override
+        public String getResultsAsListe() {
+            String Ret = "";
+            for (var item : commitsPerAuthor.entrySet())
+            {
+                Ret = Ret + item.getKey() + " = " + String.valueOf(item.getValue()) + "\n";
+            }
+            return Ret;
+        }
 
         @Override
         public String getResultAsHtmlList() {
-            StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
+            StringBuilder html = new StringBuilder("<!DOCTYPE HTML><html><head><title>Commits count per author</title></head><body><div>Commits per author: <ul>");
             for (var item : commitsPerAuthor.entrySet()) {
                 html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
             }
-            html.append("</ul></div>");
-            try {
-                File myObj = new File("index.html"); // create an html file
-                if (myObj.createNewFile()) {
-                    System.out.println("HTML File created: " + myObj.getName());
-                    System.out.println("The html file has been created in the client folder.");
-                } else {
-                    System.out.println("File already exists.");
-                }
-                FileWriter myWriter = new FileWriter("index.html");// write inside the html file
-                myWriter.write(html.toString());
-                myWriter.close();
-            } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
+            html.append("</ul></div></body></html>");
             return html.toString();
         }
 
@@ -86,21 +86,6 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
                 html.append("{ label: \"").append(item.getKey()).append("\" , y:").append(item.getValue()).append("  },");
             }
             html.append("] } ] }); chart.render(); } </script> </head> <body> <div id=\"chartContainer\" style=\"height: 600px; width: 100%;\"></div> </body> </html>");
-            try {
-              File myObj = new File("index.html"); // create an html file
-              if (myObj.createNewFile()) {
-                System.out.println("HTML File created: " + myObj.getName());
-                System.out.println("The html file has been created in the client folder.");
-              } else {
-                System.out.println("File already exists.");
-              }
-              FileWriter myWriter = new FileWriter("index.html");// write inside the html file
-              myWriter.write(html.toString());
-              myWriter.close();
-            } catch (IOException e) {
-              System.out.println("An error occurred.");
-              e.printStackTrace();
-            }
             return html.toString();
         }
     }

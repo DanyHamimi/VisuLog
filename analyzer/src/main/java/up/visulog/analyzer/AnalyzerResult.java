@@ -1,5 +1,8 @@
 package up.visulog.analyzer;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class AnalyzerResult {
@@ -15,10 +18,26 @@ public class AnalyzerResult {
 
     @Override
     public String toString() {
-        return subResults.stream().map(AnalyzerPlugin.Result::getResultAsString).reduce("", (acc, cur) -> acc + "\n" + cur);
+        return subResults.stream().map(AnalyzerPlugin.Result::getResultsAsListe).reduce("", (acc, cur) -> acc + "\n" + cur);
     }
 
-    public String toHTML() {
-        return "<html><body>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlList).reduce("", (acc, cur) -> acc + cur) + "</body></html>";
+    public void SaveReports() {
+        for(AnalyzerPlugin.Result PluginResult : subResults){
+            try {
+                String FileName = PluginResult.getPluginName() + ".html";
+                File FileReport = new File(FileName);
+                if (FileReport.exists()) {
+                    FileReport.delete();
+                }
+                FileReport.createNewFile();
+                
+                FileWriter myWriter = new FileWriter(FileName);
+                myWriter.write(PluginResult.getResultAsHtmlCycleDiagram());
+                myWriter.close();
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+        }
     }
 }

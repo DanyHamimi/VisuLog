@@ -26,6 +26,7 @@ public class CLILauncher {
             System.out.println(results.toString());
 
             //TODO: check user parameters and if user want to save report - save to appropriate format
+            results.SaveReports();
             
         } else displayHelpAndExit();
     }
