@@ -9,7 +9,7 @@ public interface AnalyzerPlugin {
         String getResultsAsListe();
         String getResultAsHtmlList();
         String getResultAsHtmlCycleDiagram();
-       // String getResultAsHtmlBarDiagram();
+        String getResultAsHtmlBarDiagram();
     }
 
     /**

@@ -26,7 +26,7 @@ public class CLILauncher {
             System.out.println(results.toString());
 
             //TODO: check user parameters and if user want to save report - save to appropriate format
-            results.SaveReports();
+            results.SaveReports(config.get().getHtmlType());
             
         } else displayHelpAndExit();
     }
@@ -38,6 +38,7 @@ public class CLILauncher {
         var gitPath = FileSystems.getDefault().getPath(".");
         var plugins = new HashMap<String, PluginConfig>();
         var config = new PluginConfig();
+        var HtmlType = Configuration.HtmlReportType.None;
         for (var arg : args) {
             if (arg.startsWith("--")) {
                 String[] parts = arg.split("=");
@@ -58,7 +59,7 @@ public class CLILauncher {
                             if (pValue.equals("countCommits")) plugins.put("countCommits", new PluginConfig() {});
                             break;*/
                         case "--loadConfigFile":
-                            //config = new PluginConfig(pValue); Fix this too, like at line 40 
+                            //config = new PluginConfig(pValue); //Fix this too, like at line 40
                             break;
                         case "--justSaveConfigFile":
                         	try {
@@ -74,6 +75,21 @@ public class CLILauncher {
                             }
                             // TODO (save command line options to a file instead of running the analysis) | DONE
                             break;
+                        case "--HtmlReport":
+                            if (pValue.equals("list")) {
+                                HtmlType = Configuration.HtmlReportType.List;
+                            } else if (pValue.equals("circle"))
+                            {
+                                HtmlType = Configuration.HtmlReportType.Cicle;
+                            } else if (pValue.equals("bar"))
+                            {
+                                HtmlType = Configuration.HtmlReportType.Bar;
+                            }
+                            else {
+                                throw new IllegalArgumentException("Not a valid argument: "+ pValue);
+                            }
+
+                            break;
                         case "--help":            // Case HELP
                             displayHelpAndExit(); // Launch displayHelpAndExit
                             break;
@@ -85,7 +101,7 @@ public class CLILauncher {
                 gitPath = FileSystems.getDefault().getPath(arg);
             }
         }
-        return Optional.of(new Configuration(gitPath, plugins));
+        return Optional.of(new Configuration(gitPath, plugins, HtmlType));
     }
 
     /*
@@ -99,6 +115,12 @@ public class CLILauncher {
         System.out.println("--addPlugin, takes and arg and makes an instance of PluginConfig.");
         System.out.println("--loadConfigFile, load options from an external file given as arg.");
         System.out.println("--justSaveConfigFile, will make the program not run the analysis and print command line options to a file given as arg instead.");
+        System.out.println("--HtmlReport, will make the program to generate report");
+        System.out.println("          Next options are available:");
+        System.out.println("           * list - simple list");
+        System.out.println("           * circle - circle diagram based on CanvasJS");
+        System.out.println("           * bar - bar diagram based on CanvasJS");
+        System.out.println("          Example : --HtmlReport=bar");
         System.out.println("--help, display help and syntax in case you need it again.");
         //TODO: print the list of options and their syntax | UPDATE : Should be done, needs testing
         System.exit(0);

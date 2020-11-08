@@ -1,5 +1,7 @@
 package up.visulog.analyzer;
 
+import up.visulog.config.Configuration;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,7 +23,13 @@ public class AnalyzerResult {
         return subResults.stream().map(AnalyzerPlugin.Result::getResultsAsListe).reduce("", (acc, cur) -> acc + "\n" + cur);
     }
 
-    public void SaveReports() {
+    public void SaveReports(Configuration.HtmlReportType HtmlType) {
+
+        if (Configuration.HtmlReportType.None == HtmlType)
+        {
+            return;
+        }
+
         for(AnalyzerPlugin.Result PluginResult : subResults){
             try {
                 String FileName = PluginResult.getPluginName() + ".html";
@@ -32,7 +40,15 @@ public class AnalyzerResult {
                 FileReport.createNewFile();
                 
                 FileWriter myWriter = new FileWriter(FileName);
-                myWriter.write(PluginResult.getResultAsHtmlCycleDiagram());
+                if (Configuration.HtmlReportType.Bar == HtmlType){
+                    myWriter.write(PluginResult.getResultAsHtmlBarDiagram());
+                } else if (Configuration.HtmlReportType.Cicle == HtmlType){
+                    myWriter.write(PluginResult.getResultAsHtmlCycleDiagram());
+                } else if (Configuration.HtmlReportType.List == HtmlType){
+                    myWriter.write(PluginResult.getResultAsHtmlList());
+                } else {
+                    throw new IllegalArgumentException("Unknown argument: " + HtmlType);
+                }
                 myWriter.close();
             } catch (IOException e) {
                 System.out.println("An error occurred.");

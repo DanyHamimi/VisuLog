@@ -108,5 +108,70 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
                     "</html>");
             return html.toString();
         }
+
+        @Override
+        public String getResultAsHtmlBarDiagram() {
+            StringBuilder html = new StringBuilder("<!DOCTYPE HTML>\n");
+            html.append("<html>\n" +
+                        "<head>\n" +
+                        "<meta charset=\"UTF-8\">\n" +
+                        "<script type=\"text/javascript\">\n" +
+                        "window.onload = function () {\n" +
+                        "\t\n" +
+                        "var chart = new CanvasJS.Chart(\"chartContainer\", \n" +
+                        "{\n" +
+                        "    animationEnabled: true,\n" +
+                        "    title:\n" +
+                        "    {\n" +
+                        "        text: \"Commits per author\"\n" +
+                        "    },\n" + "    axisX: \n" +
+                        "    {    \n" +
+                        "        margin: 8,\n" +
+                        "        interval: 1,\n" +
+                        "        labelWrap: false,\n" +
+                        "        labelFontSize: 14,\n" +
+                        "        labelAutoFit: true,\n"+
+                        "        labelPlacement: \"inside\",\n" +
+                        "        tickPlacement: \"inside\"\n" +
+                        "    },\n" +
+                        "    axisY: \n" +
+                        "    {\n" +
+                        "        title: \"\",\n" +
+                        "        titleFontSize: 10,\n" +
+                        "        includeZero: true,\n" +
+                        "        suffix: \"commits\"\n" +
+                        "    },\n" +
+                        "    data: \n" +
+                        "    [\n" +
+                        "        {\n" +
+                        "            type: \"bar\",\n" +
+                        "            axisYType: \"secondary\",\n" +
+                        "            yValueFormatString: \"#,###.##commits\",\n" +
+                        "            dataPoints: \n" +
+                        "            [\t\n"
+            );
+
+            for (var item : commitsPerAuthor.entrySet()) {
+                html.append("\t\t{ y: ").append(item.getValue()).append(", label:\"").append(item.getKey()).append("\"  },\n");
+            }
+            html.deleteCharAt(html.length()-1); //delete last "\n"
+            html.deleteCharAt(html.length()-1); //delete last ","
+            html.append("\t    ]\n" +
+                        "        }\n" +
+                        "    ]\n" +
+                        "});\n" +
+                        "\n" +
+                        "chart.render();\n" +
+                        "}\n" +
+                        "</script>\n" +
+                        "</head>\n" +
+                        "<body>\n" +
+                        "<div id=\"chartContainer\" style=\"height: 600px; max-width: 920px; margin: 0px auto;\"></div>\n" +
+                        "<script src=\"../CanvasJS/canvasjs.min.js\"></script>\n" +
+                        "</body>\n" +
+                        "</html>");
+
+            return html.toString();
+        }
     }
 }
