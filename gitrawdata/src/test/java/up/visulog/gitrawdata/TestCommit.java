@@ -23,4 +23,7 @@ public class TestCommit {
 	System.out.println("Hello world");
 	assertEquals(expected, commit.toString());
     }
+	public static void main(String [] args) {
+		System.out.println("Hello, this is working !");
+	}
 }
