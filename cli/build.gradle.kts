@@ -1,6 +1,7 @@
 
 plugins {
-    `java-library`
+	java
+	application
 }
 
 application.mainClass.set("up.visulog.cli.CliApplication")
