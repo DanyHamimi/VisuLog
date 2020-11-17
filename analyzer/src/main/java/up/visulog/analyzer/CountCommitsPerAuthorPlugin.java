@@ -11,6 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
     private final Configuration configuration;
     private Result result;
@@ -62,16 +65,18 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             }
             html.append("] } ] }); chart.render(); } </script> </head> <body> <div id=\"chartContainer\" style=\"height: 600px; width: 100%;\"></div> </body> </html>");
             try {
-              File myObj = new File("index.html"); // create an html file
-              if (myObj.createNewFile()) {
-                System.out.println("HTML File created: " + myObj.getName());
-                System.out.println("The html file has been created in the client folder.");
-              } else {
-                System.out.println("File already exists.");
-              }
-              FileWriter myWriter = new FileWriter("index.html");// write inside the html file
-              myWriter.write(html.toString());
-              myWriter.close();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yy_HH'h'mm");
+	            Date date = new Date();
+                File myObj = new File(dateFormat.format(date)+"_visulog.html"); // create an html file
+                if (myObj.createNewFile()) {
+                    System.out.println("HTML File created: " + myObj.getName());
+                    System.out.println("The html file has been created in the client folder.");
+                } else {
+                    System.out.println("File already exists.");
+                }
+                FileWriter myWriter = new FileWriter(dateFormat.format(date)+"_visulog.html");// write inside the html file
+                myWriter.write(html.toString());
+                myWriter.close();
             } catch (IOException e) {
               System.out.println("An error occurred.");
               e.printStackTrace();
