@@ -90,8 +90,8 @@ public class CLILauncher {
                             }
 
                             break;
-                        case "--help":            // Case HELP
-                            displayHelpAndExit(); // Launch displayHelpAndExit
+                        case "--help":          
+                            displayHelpAndExit(); 
                             break;
                         default:
                             return Optional.empty();
