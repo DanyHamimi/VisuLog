@@ -94,6 +94,18 @@ For instance
 ./gradlew run --args='. --addPlugin=countCommits'
 ```
 
+Or run the application and generate HTML report (see --help for details)
+
+```
+./gradlew run --args='. --addPlugin=countCommits  --HtmlReport=bar'
+```
+```
+./gradlew run --args='. --addPlugin=countCommits  --HtmlReport=circle'
+```
+```
+./gradlew run --args='. --addPlugin=countCommits  --HtmlReport=list'
+```
+
 Will count the commits of each author in the current branch of the git repository present in the current folder (".").
 
 ```
