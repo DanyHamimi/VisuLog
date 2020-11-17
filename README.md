@@ -95,3 +95,14 @@ For instance
 ```
 
 Will count the commits of each author in the current branch of the git repository present in the current folder (".").
+
+```
+./gradlew run --args='. --addPlugin=countCommits  --HtmlReport=bar'
+```
+```
+./gradlew run --args='. --addPlugin=countCommits  --HtmlReport=circle'
+```
+```
+./gradlew run --args='. --addPlugin=countCommits  --HtmlReport=list'
+```
+
