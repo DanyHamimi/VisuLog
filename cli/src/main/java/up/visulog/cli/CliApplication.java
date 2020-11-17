@@ -1,9 +1,11 @@
 package up.visulog.cli;
+import up.visulog.gitrawdata.Commit;
 
 public class CliApplication {
-	
+
 	public static void main(String[] args){
-		
-		System.out.println("Hello world");
+		Commit c = new Commit("toto","plage","22/02","23");
+		c.getCommit();
+
 	}
 }
