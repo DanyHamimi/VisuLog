@@ -15,17 +15,22 @@ Merged by: KAABECHE rayane
 
 
 Week 29/09 -> 13/10 | Goal -> do TODO
-Merge request: #14 CLILauncher.java --addPlugin by SUDOL Filip
+Commit: #14 CLILauncher.java --addPlugin by SUDOL Filip
 Merged by: HAMIMI dany 
 
-Merge request: Revert "Merge branch 'documentation-cli-java' into 'develop'" done by FOURMONT baptiste
+Commit: Revert "Merge branch 'documentation-cli-java' into 'develop'" done by FOURMONT baptiste
 Merged by: FOURMONT baptiste
 
-Merge request:
+Commit: --loadConfigFile option implementation added, done by BRAGINA natalia
 Merged by:
 
-Merge request:
+Commit: Add base implementation for PluginConfig using Java Properties class, done by BRAGINA natalia
 Merged by:
+
+Commit: Merge branch 'architecture_of_project' into 'develop', done by FOURMONT baptiste
+Merged by:
+
+
 
 Week 13/10 -> 03/11 | Goal -> implement graph to html and add backlog
 Merge request: #24 Put backlog on gitlab
@@ -40,13 +45,20 @@ Merged by: KAABECHE rayane
 Merge request: Document CLILauncher FOURMONT baptiste
 Merged by: HAMIMI dany
 
+
 Week 03/11 -> 17/11 | Goal -> jgit
 
 Merge request: Update backlog done by SUDOL Filip
 Merged by: SUDOL Filip
 
 Merge request: Br diagrams done by BRAGINA natalia
-Merged by:
+Merged by: HAMIMI dany 
+
+Commit: coderefactoring + fixed console print + added generation report per plugin done by BRAGINA natalia
+
+Commit: non-commercial CanvasJS + usage of free version CanvasJS added done by BRAGINA natalia
+
+Commit: added bar diagram + choise of type of html report like a console command option done by BRAGINA natalia
 
 Merge request: Update CountCommitsPerAuthorPlugin.java done by SIMONEAU louis-alexei
 Merged by:
