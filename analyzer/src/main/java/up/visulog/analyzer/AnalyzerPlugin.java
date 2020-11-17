@@ -4,12 +4,8 @@ import java.lang.module.Configuration;
 
 public interface AnalyzerPlugin {
     interface Result {
-        String getPluginName();
         String getResultAsString();
-        String getResultsAsListe();
-        String getResultAsHtmlList();
-        String getResultAsHtmlCycleDiagram();
-        String getResultAsHtmlBarDiagram();
+        String getResultAsHtmlDiv();
     }
 
     /**
