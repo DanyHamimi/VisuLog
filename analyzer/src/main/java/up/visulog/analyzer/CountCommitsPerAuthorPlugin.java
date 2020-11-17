@@ -11,6 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
     private final Configuration configuration;
     private Result result;
