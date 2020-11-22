@@ -10,7 +10,6 @@ import java.util.Optional;
 
 import java.io.IOException;
 import java.io.File;
-import static java.nio.file.Paths.get;
 
 public class CLILauncher {
 
@@ -21,7 +20,6 @@ public class CLILauncher {
 
     public static void main(String[] args) {
         var config = makeConfigFromCommandLineArgs(args);
-
         if (config.isPresent()) {
             var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
@@ -92,12 +90,6 @@ public class CLILauncher {
                             }
 
                             break;
-
-                        case "--repositoryPath":
-                            gitPath = get(pValue);
-                            System.out.println("Commits counted from the repository : " + pValue);
-                            break;
-
                         case "--help":          
                             displayHelpAndExit(); 
                             break;
@@ -105,8 +97,8 @@ public class CLILauncher {
                             return Optional.empty();
                     }
                 }
-            //} else {
-            //   gitPath = FileSystems.getDefault().getPath(arg);
+            } else {
+                gitPath = FileSystems.getDefault().getPath(arg);
             }
         }
         return Optional.of(new Configuration(gitPath, plugins, HtmlType));
