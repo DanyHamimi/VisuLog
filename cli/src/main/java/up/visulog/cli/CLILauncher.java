@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import java.io.IOException;
 import java.io.File;
+import static java.nio.file.Paths.get;
 
 public class CLILauncher {
 
@@ -90,15 +91,21 @@ public class CLILauncher {
                             }
 
                             break;
-                        case "--help":            // Case HELP
-                            displayHelpAndExit(); // Launch displayHelpAndExit
+
+                        case "--repositoryPath":
+                            gitPath = get(pValue);
+                            System.out.println("Commits counted from the repository : " + pValue);
+                            break;
+
+                        case "--help":          
+                            displayHelpAndExit(); 
                             break;
                         default:
                             return Optional.empty();
                     }
                 }
-            } else {
-                gitPath = FileSystems.getDefault().getPath(arg);
+            //} else {
+            //   gitPath = FileSystems.getDefault().getPath(arg);
             }
         }
         return Optional.of(new Configuration(gitPath, plugins, HtmlType));
