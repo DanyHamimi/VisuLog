@@ -117,17 +117,27 @@ public class CLILauncher {
     */
     private static void displayHelpAndExit() {
         System.out.println("The correct syntax is : args='<directory> <command>=<argument> without the < >'");
+        System.out.println ("");
         System.out.println("For example : '. --addPlugin=countCommits'");
+        System.out.println ("");
         System.out.println("Below you will find a list of commands you can use.");
+        System.out.println ("");
         System.out.println("--addPlugin, takes and arg and makes an instance of PluginConfig.");
+        System.out.println ("");
         System.out.println("--loadConfigFile, load options from an external file given as arg.");
+        System.out.println ("");
         System.out.println("--justSaveConfigFile, will make the program not run the analysis and print command line options to a file given as arg instead.");
-        System.out.println("--HtmlReport, will make the program to generate report");
-        System.out.println("          Next options are available:");
+        System.out.println ("");
+        System.out.println("--HtmlReport, will make the program to generate report.");
+        System.out.println("     Next options are available:");
         System.out.println("           * list - simple list");
         System.out.println("           * circle - circle diagram based on CanvasJS");
         System.out.println("           * bar - bar diagram based on CanvasJS");
-        System.out.println("          Example : --HtmlReport=bar");
+        System.out.println("     Example : --HtmlReport=bar");
+        System.out.println ("");
+        System.out.println("--repositoryPath, permit to specify the directory to take the git logs.");
+        System.out.println("     Example : --repositoryPath=/home/../..");
+        System.out.println ("");
         System.out.println("--help, display help and syntax in case you need it again.");
         //TODO: print the list of options and their syntax | UPDATE : Should be done, needs testing
         System.exit(0);
