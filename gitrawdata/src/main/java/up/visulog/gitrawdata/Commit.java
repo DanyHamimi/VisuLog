@@ -38,20 +38,30 @@ public class Commit {
       System.out.println(System.getProperty("user.dir"));
     }
 
-    public void getCommit() throws IOException, GitAPIException {
-      Repository repo = new FileRepository("C:/ Users/rayan/Desktop/visulog/visulog-jgit/visulog/.git");
+    public void getCommit() throws IOException {
+      Repository repo = new FileRepository(".git");
       Git git = new Git(repo);
       RevWalk walk = new RevWalk(repo);
 
-      List<Ref> branches = git.branchList().call();
+        List<Ref> branches = null;
+        try {
+            branches = git.branchList().call();
+        } catch (GitAPIException e) {
+            System.out.println("Erreur");
+        }
 
-      for (Ref branch : branches) {
+        for (Ref branch : branches) {
           String branchName = branch.getName();
 
           System.out.println("Commits of branch: " + branch.getName());
           System.out.println("-------------------------------------");
 
-          Iterable<RevCommit> commits = git.log().all().call();
+          Iterable<RevCommit> commits = null;
+          try {
+              commits = git.log().all().call();
+          } catch (GitAPIException e) {
+              System.out.println("Erreur");
+          }
 
           for (RevCommit commit : commits) {
               boolean foundInThisBranch = false;
