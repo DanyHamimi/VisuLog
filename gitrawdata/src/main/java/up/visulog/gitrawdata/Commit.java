@@ -1,6 +1,7 @@
 package up.visulog.gitrawdata;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 
 import java.util.*;
@@ -28,6 +29,7 @@ public class Commit {
     public final String author;
     public final String description;
     public LinkedHashMap<String , Integer> authorlist = new LinkedHashMap<String , Integer>();
+    public String brancheN;
 
     public Commit(String id, String author, String date, String description) {
         this.id = id;
@@ -39,21 +41,22 @@ public class Commit {
     public void getrepo(){
       System.out.println(System.getProperty("user.dir"));
     }
-    public void CloneRep(){
+    public void CloneRep(String s){
+        String repoUrl = s;
+        String cloneDirectoryPath = "datagit";
         try {
             Git.cloneRepository()
-                    .setURI("https://github.com/eclipse/jgit.git")
-                    .setDirectory(new File("/TESTCLONE"))
-                    .setBranchesToClone(Arrays.asList("master"))
-                    .setBranch("master")
+                    .setURI(repoUrl)
+                    .setDirectory(Paths.get(cloneDirectoryPath).toFile())
                     .call();
         } catch (GitAPIException e) {
+            System.out.println("Exception occurred while cloning repo");
             e.printStackTrace();
         }
     }
 
     public void getCommit() throws IOException {
-      Repository repo = new FileRepository("../.git");
+      Repository repo = new FileRepository("datagit/.git");
       Git git = new Git(repo);
       RevWalk walk = new RevWalk(repo);
 
@@ -66,9 +69,7 @@ public class Commit {
 
         for (Ref branch : branches) {
           String branchName = branch.getName();
-
-          System.out.println("Commits of branch: " + branch.getName());
-          System.out.println("-------------------------------------");
+	  brancheN = branchName;
 
           Iterable<RevCommit> commits = null;
           try {
@@ -111,9 +112,6 @@ public class Commit {
               }
           }
       }
-        for (Map.Entry mapentry : authorlist.entrySet()) {
-            System.out.println("Nombre de Comits de : "+mapentry.getKey() + " : " + mapentry.getValue());
-        }
     }
 
     @Override
@@ -171,7 +169,17 @@ public class Commit {
 	}
     }
 
-    public static void main(String[] args) {
-
+    public void printCommit(){
+        System.out.println("Commits of branch: " + brancheN +" :");
+        System.out.println("-------------------------------------");
+        for (Map.Entry mapentry : authorlist.entrySet()) {
+            System.out.println("Nombre de Comits de : "+mapentry.getKey() + " : " + mapentry.getValue());
+        }
     }
+    public LinkedHashMap<String , Integer> gethmap(){
+        return authorlist;
+    }
+
+
 }
+ 
