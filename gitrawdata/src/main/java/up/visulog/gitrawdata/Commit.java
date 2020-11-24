@@ -53,7 +53,7 @@ public class Commit {
     }
 
     public void getCommit() throws IOException {
-      Repository repo = new FileRepository(".git");
+      Repository repo = new FileRepository("../.git");
       Git git = new Git(repo);
       RevWalk walk = new RevWalk(repo);
 
