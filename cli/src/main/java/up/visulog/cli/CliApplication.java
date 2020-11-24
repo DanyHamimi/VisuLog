@@ -18,8 +18,8 @@ public class CliApplication {
 		file.delete();
 	}
 	public static String getResultAsHtmlDiv(LinkedHashMap<String, Integer> InfoCom) {
-		StringBuilder html = new StringBuilder("<!DOCTYPE HTML><html><head>");
-		html.append("\"<script src=\"https://canvasjs.com/assets/script/canvasjs.min.js\"></script>\"");
+	    StringBuilder html = new StringBuilder("<!DOCTYPE HTML><html><head>");
+		html.append("<script src=\"../CanvasJS/canvasjs.min.js\"></script>");
 		html.append("<script type=\"text/javascript\">");
 		html.append("window.onload = function () { var chart = new CanvasJS.Chart(\"chartContainer\", {title:{ text: \"Commits per author:\"},data: [{type: \"pie\",dataPoints: [");
 		for (var item : InfoCom.entrySet()) {
