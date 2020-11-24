@@ -1,5 +1,6 @@
 package up.visulog.gitrawdata;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 
 import java.util.*;
@@ -26,6 +27,7 @@ public class Commit {
     public final String date;
     public final String author;
     public final String description;
+    public LinkedHashMap<String , Integer> authorlist = new LinkedHashMap<String , Integer>();
 
     public Commit(String id, String author, String date, String description) {
         this.id = id;
@@ -37,21 +39,43 @@ public class Commit {
     public void getrepo(){
       System.out.println(System.getProperty("user.dir"));
     }
+    public void CloneRep(){
+        try {
+            Git.cloneRepository()
+                    .setURI("https://github.com/eclipse/jgit.git")
+                    .setDirectory(new File("/TESTCLONE"))
+                    .setBranchesToClone(Arrays.asList("master"))
+                    .setBranch("master")
+                    .call();
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public void getCommit() throws IOException, GitAPIException {
-      Repository repo = new FileRepository("C:/ Users/rayan/Desktop/visulog/visulog-jgit/visulog/.git");
+    public void getCommit() throws IOException {
+      Repository repo = new FileRepository(".git");
       Git git = new Git(repo);
       RevWalk walk = new RevWalk(repo);
 
-      List<Ref> branches = git.branchList().call();
+        List<Ref> branches = null;
+        try {
+            branches = git.branchList().call();
+        } catch (GitAPIException e) {
+            System.out.println("Erreur");
+        }
 
-      for (Ref branch : branches) {
+        for (Ref branch : branches) {
           String branchName = branch.getName();
 
           System.out.println("Commits of branch: " + branch.getName());
           System.out.println("-------------------------------------");
 
-          Iterable<RevCommit> commits = git.log().all().call();
+          Iterable<RevCommit> commits = null;
+          try {
+              commits = git.log().all().call();
+          } catch (GitAPIException e) {
+              System.out.println("Erreur");
+          }
 
           for (RevCommit commit : commits) {
               boolean foundInThisBranch = false;
@@ -72,13 +96,24 @@ public class Commit {
               }
 
               if (foundInThisBranch) {
-                  System.out.println(commit.getName());
-                  System.out.println(commit.getAuthorIdent().getName());
-                  System.out.println(new Date(commit.getCommitTime() * 1000L));
-                  System.out.println(commit.getFullMessage());
+                      if(authorlist.containsKey(commit.getAuthorIdent().getName())){
+                          authorlist.replace(commit.getAuthorIdent().getName(),authorlist.get(commit.getAuthorIdent().getName()),authorlist.get(commit.getAuthorIdent().getName())+1);
+                          //System.out.println("Nombre de Comits de : "+ commit.getAuthorIdent().getName() + " : " + authorlist.get(commit.getAuthorIdent().getName()));
+
+                      }
+                      else {
+                          authorlist.put(commit.getAuthorIdent().getName(),1);
+                      }
+                  //System.out.println(commit.getName());
+                  //System.out.println(commit.getAuthorIdent().getName());
+                  //System.out.println(new Date(commit.getCommitTime() * 1000L));
+                  //System.out.println(commit.getFullMessage());
               }
           }
       }
+        for (Map.Entry mapentry : authorlist.entrySet()) {
+            System.out.println("Nombre de Comits de : "+mapentry.getKey() + " : " + mapentry.getValue());
+        }
     }
 
     @Override
@@ -134,5 +169,9 @@ public class Commit {
 	    walk.dispose();
 	    return commitOfRevCommit(id, rCommit);
 	}
+    }
+
+    public static void main(String[] args) {
+
     }
 }
