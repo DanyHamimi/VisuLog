@@ -54,7 +54,7 @@ public class CliApplication {
 		File indexhtml= new File("index.html");
 		indexhtml.delete();
 		Commit com = new Commit("test","test","00/00","0");
-		com.CloneRep("https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog");
+		com.CloneRep(args[0]);
 		com.getCommit();
 		com.printCommit();
 		LinkedHashMap<String , Integer> InfoCom =  com.gethmap();
