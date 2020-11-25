@@ -37,3 +37,6 @@ Visulog contains the following modules:
 ## Sometimes Exception occurred while cloning repo
 - org.eclipse.jgit.api.errors.TransportException: https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog: cannot open git-upload-pack
 - Simple fixe it's to enter: git config http.sslVerify true 
+
+## How to run the program
+./gradlew run --args='https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog'
