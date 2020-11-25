@@ -11,6 +11,7 @@ import java.nio.file.FileSystems;
 import java.util.HashMap;
 // import java.util.Option; not run actually for the moment
 import java.net.URL; 
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException; 
 
 public class CliApplication {
@@ -24,6 +25,15 @@ public class CliApplication {
 		}
 		file.delete();
 	}
+
+	public static int getResponseCode(String urlString) throws MalformedURLException, IOException {
+		URL u = new URL(urlString); 
+		HttpURLConnection huc =  (HttpURLConnection)  u.openConnection(); 
+		huc.setRequestMethod("GET"); 
+		huc.connect(); 
+		return huc.getResponseCode();
+	}
+
 	public static boolean isValidURL(String url) throws MalformedURLException{ 
         try { 
             new URL(url).toURI(); 
@@ -34,6 +44,16 @@ public class CliApplication {
             return false; 
         } 
 	} 
+
+	public static boolean check_all_url(String url) throws MalformedURLException, IOException  {
+		if(url.contains("gitlab.com") || url.contains("github.com")){
+			if(isValidURL(url) && getResponseCode(url) != 404){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static String getResultAsHtmlDiv(LinkedHashMap<String, Integer> InfoCom) {
 	    StringBuilder html = new StringBuilder("<!DOCTYPE HTML><html><head>");
 		html.append("<script src=\"../CanvasJS/canvasjs.min.js\"></script>");
@@ -66,7 +86,7 @@ public class CliApplication {
 		File indexhtml= new File("index.html");
 		indexhtml.delete();
 		Commit com = new Commit("test","test","00/00","0");
-		if(isValidURL(args[0])){
+		if(check_all_url(args[0])){
 			com.CloneRep(args[0]);
 		}else{
 			com.CloneRep("https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog/");
