@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.nio.file.FileSystems;
 import java.util.HashMap;
 // import java.util.Option; not run actually for the moment
+import java.net.URL; 
+import java.net.MalformedURLException; 
 
 public class CliApplication {
 	public static void recursiveDelete(File file) {
@@ -22,6 +24,16 @@ public class CliApplication {
 		}
 		file.delete();
 	}
+	public static boolean isValidURL(String url) throws MalformedURLException{ 
+        try { 
+            new URL(url).toURI(); 
+            return true; 
+        } 
+          
+        catch (Exception e) { 
+            return false; 
+        } 
+	} 
 	public static String getResultAsHtmlDiv(LinkedHashMap<String, Integer> InfoCom) {
 	    StringBuilder html = new StringBuilder("<!DOCTYPE HTML><html><head>");
 		html.append("<script src=\"../CanvasJS/canvasjs.min.js\"></script>");
@@ -54,7 +66,11 @@ public class CliApplication {
 		File indexhtml= new File("index.html");
 		indexhtml.delete();
 		Commit com = new Commit("test","test","00/00","0");
-		com.CloneRep(args[0]);
+		if(isValidURL(args[0])){
+			com.CloneRep(args[0]);
+		}else{
+			com.CloneRep("https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog/");
+		}
 		com.getCommit();
 		com.printCommit();
 		LinkedHashMap<String , Integer> InfoCom =  com.gethmap();
