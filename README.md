@@ -33,3 +33,7 @@ Visulog contains the following modules:
 - a generator of web pages
 - a command line program that calls the other modules using the provided command line parameters
 - a shared module for configuration object definitions
+
+## Sometimes Exception occurred while cloning repo
+- org.eclipse.jgit.api.errors.TransportException: https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog: cannot open git-upload-pack
+- Simple fixe it's to enter: git config http.sslVerify true 
