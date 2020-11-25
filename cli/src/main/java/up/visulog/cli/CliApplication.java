@@ -6,6 +6,11 @@ import java.io.File;
 import java.util.LinkedHashMap;
 import java.io.FileWriter;
 
+// Useful for add Config Option next time
+import java.nio.file.FileSystems;
+import java.util.HashMap;
+import java.util.Option;
+
 public class CliApplication {
 	public static void recursiveDelete(File file) {
 		if (!file.exists())
