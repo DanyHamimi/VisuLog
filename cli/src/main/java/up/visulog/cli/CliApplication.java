@@ -208,27 +208,34 @@ public class CliApplication {
 	}
 	
 	public static void main(String[] args) throws IOException {
+		Display disp = new Display();
+		disp.setVisible(true);
+		disp.getBtn().addActionListener((event) -> {
+			try{
+				work(disp);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+	private static void work (Display disp) throws IOException {
 		String folder = "datagit";
 		recursiveDelete(new File(folder));
 		File indexhtml= new File("index.html");
 		indexhtml.delete();
 		Commit com = new Commit("test","test","00/00","0");
-		if(check_all_url(args[0])){
-			com.CloneRep(args[0]);
+		if(check_all_url(disp.getTextEdit().getText())){
+			com.CloneRep(disp.getTextEdit().getText());
 		}else{
 			com.CloneRep("https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog/");
 		}
 		com.getCommit();
 		com.printCommit();
 		LinkedHashMap<String , Integer> InfoCom =  com.gethmap();
-		if(args[1].equals("cicle")){
-			getResultAsHtmlCycleDiagram(InfoCom);
-		}else if(args[1].equals("bar")){
-			getResultAsHtmlBarDiagram(InfoCom);
-		}else{
-			getResultAsHtmlDiv(InfoCom);
+		getResultAsHtmlCycleDiagram(InfoCom);
+		if(Desktop.isDesktopSupported()){
+			Desktop.getDesktop().open(indexhtml);
 		}
-		Desktop.getDesktop().open(indexhtml);
-		
 	}
 }
+
