@@ -40,3 +40,7 @@ Visulog contains the following modules:
 
 ## How to run the program
 ./gradlew run --args='https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog'
+
+- circle / bar / default with div HTML
+- ./gradlew run --args='https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog circle'
+- ./gradlew run --args='https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog bar'
