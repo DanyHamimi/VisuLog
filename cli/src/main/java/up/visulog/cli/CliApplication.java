@@ -11,9 +11,9 @@ import java.awt.Desktop;
 import java.nio.file.FileSystems;
 import java.util.HashMap;
 // import java.util.Option; not run actually for the moment
-import java.net.URL; 
+import java.net.URL;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException; 
+import java.net.MalformedURLException;
 
 public class CliApplication {
 	public static void recursiveDelete(File file) {
@@ -28,23 +28,23 @@ public class CliApplication {
 	}
 
 	public static int getResponseCode(String urlString) throws MalformedURLException, IOException {
-		URL u = new URL(urlString); 
-		HttpURLConnection huc =  (HttpURLConnection)  u.openConnection(); 
-		huc.setRequestMethod("GET"); 
-		huc.connect(); 
+		URL u = new URL(urlString);
+		HttpURLConnection huc =  (HttpURLConnection)  u.openConnection();
+		huc.setRequestMethod("GET");
+		huc.connect();
 		return huc.getResponseCode();
 	}
 
-	public static boolean isValidURL(String url) throws MalformedURLException{ 
-        try { 
-            new URL(url).toURI(); 
-            return true; 
-        } 
-          
-        catch (Exception e) { 
-            return false; 
-        } 
-	} 
+	public static boolean isValidURL(String url) throws MalformedURLException{
+        try {
+            new URL(url).toURI();
+            return true;
+        }
+
+        catch (Exception e) {
+            return false;
+        }
+	}
 
 	public static boolean check_all_url(String url) throws MalformedURLException, IOException  {
 		if(url.contains("gitlab.com") || url.contains("github.com")){
@@ -206,7 +206,7 @@ public class CliApplication {
 		}
 		return html.toString();
 	}
-	
+
 	public static void main(String[] args) throws IOException {
 		String folder = "datagit";
 		recursiveDelete(new File(folder));
@@ -228,7 +228,10 @@ public class CliApplication {
 		}else{
 			getResultAsHtmlDiv(InfoCom);
 		}
+	if(Desktop.isDesktopSupported()){
 		Desktop.getDesktop().open(indexhtml);
-		
+	}
+
+
 	}
 }
