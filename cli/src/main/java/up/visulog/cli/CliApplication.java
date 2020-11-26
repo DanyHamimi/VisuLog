@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.io.FileWriter;
+import java.awt.Desktop;
 
 // Useful for add Config Option next time
 import java.nio.file.FileSystems;
@@ -227,6 +228,7 @@ public class CliApplication {
 		}else{
 			getResultAsHtmlDiv(InfoCom);
 		}
+		Desktop.getDesktop().open(indexhtml);
 		
 	}
 }
