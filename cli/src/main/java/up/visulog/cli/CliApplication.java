@@ -47,7 +47,7 @@ public class CliApplication {
 	}
 
 	public static boolean check_all_url(String url) throws MalformedURLException, IOException  {
-		if(url.contains("gitlab.com") || url.contains("github.com")){
+		if(url.contains("gitlab.com") || url.contains("github.com") || url.contains("https://gaufre.informatique.univ-paris-diderot.fr")){
 			if(isValidURL(url) && getResponseCode(url) != 404){
 				return true;
 			}
