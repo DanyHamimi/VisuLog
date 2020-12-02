@@ -55,7 +55,7 @@ public class Commit {
         }
     }
 
-    public void getCommit() throws IOException {
+    public void getCommit(String str) throws IOException, GitAPIException {
       Repository repo = new FileRepository("datagit/.git");
       Git git = new Git(repo);
       RevWalk walk = new RevWalk(repo);
@@ -69,18 +69,23 @@ public class Commit {
 
         for (Ref branch : branches) {
           String branchName = branch.getName();
-	  brancheN = branchName;
 
           Iterable<RevCommit> commits = null;
           try {
-              commits = git.log().all().call();
+              if(str.equals("all")){
+                commits = git.log().all().call();
+              }else{
+                commits = git.log()
+                .add(repo.resolve("remotes/origin/"+str))
+                .call();
+            }
+                brancheN = str;
           } catch (GitAPIException e) {
               System.out.println("Erreur");
           }
 
           for (RevCommit commit : commits) {
-              boolean foundInThisBranch = false;
-
+             
               RevCommit targetCommit = walk.parseCommit(repo.resolve(
                       commit.getName()));
               for (Map.Entry<String, Ref> e : repo.getAllRefs().entrySet()) {
@@ -88,15 +93,12 @@ public class Commit {
                       if (walk.isMergedInto(targetCommit, walk.parseCommit(
                               e.getValue().getObjectId()))) {
                           String foundInBranch = e.getValue().getName();
-                          if (branchName.equals(foundInBranch)) {
-                              foundInThisBranch = true;
-                              break;
-                          }
+                          
                       }
                   }
               }
 
-              if (foundInThisBranch) {
+              
                       if(authorlist.containsKey(commit.getAuthorIdent().getName())){
                           authorlist.replace(commit.getAuthorIdent().getName(),authorlist.get(commit.getAuthorIdent().getName()),authorlist.get(commit.getAuthorIdent().getName())+1);
                           //System.out.println("Nombre de Comits de : "+ commit.getAuthorIdent().getName() + " : " + authorlist.get(commit.getAuthorIdent().getName()));
@@ -109,7 +111,7 @@ public class Commit {
                   //System.out.println(commit.getAuthorIdent().getName());
                   //System.out.println(new Date(commit.getCommitTime() * 1000L));
                   //System.out.println(commit.getFullMessage());
-              }
+              
           }
       }
     }

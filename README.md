@@ -44,3 +44,6 @@ Visulog contains the following modules:
 - circle / bar / default with div HTML
 - ./gradlew run --args='https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog circle'
 - ./gradlew run --args='https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog bar'
+
+./gradlew run --args='https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog circle all' to get all commits of repository
+./gradlew run --args='https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog circle runBugFix' the second argument is the branch

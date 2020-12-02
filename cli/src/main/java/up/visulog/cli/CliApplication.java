@@ -15,6 +15,9 @@ import java.net.URL;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
+
 public class CliApplication {
 	public static void recursiveDelete(File file) {
 		if (!file.exists())
@@ -207,7 +210,7 @@ public class CliApplication {
 		return html.toString();
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, GitAPIException {
 		String folder = "datagit";
 		recursiveDelete(new File(folder));
 		File indexhtml= new File("index.html");
@@ -218,7 +221,11 @@ public class CliApplication {
 		}else{
 			com.CloneRep("https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog/");
 		}
-		com.getCommit();
+		if(args[2].equals("all")){
+			com.getCommit("all");
+		}else{
+			com.getCommit(args[2]);
+		}
 		com.printCommit();
 		LinkedHashMap<String , Integer> InfoCom =  com.gethmap();
 		if(args[1].equals("cicle")){
