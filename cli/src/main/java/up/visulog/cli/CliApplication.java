@@ -210,12 +210,26 @@ public class CliApplication {
 		return html.toString();
 	}
 
-	public static void main(String[] args) throws IOException, GitAPIException {
+	static class CustomException extends Exception{
+		private static final long serialVersionUID = 1L;
+		public CustomException(String message){
+    		super(message);
+		  }
+	}
+
+	public static void main(String[] args) throws IOException, GitAPIException, CustomException {
 		String folder = "datagit";
 		recursiveDelete(new File(folder));
 		File indexhtml= new File("index.html");
 		indexhtml.delete();
 		Commit com = new Commit("test","test","00/00","0");
+		if (args == null) {
+			throw new CustomException("Rentre 3 arguments ...");
+		}else if (args.length <= 0) {
+			return;
+		}else if(args.length < 3){
+			throw new CustomException("Rentre un lien puis un type de diagramme et ensuite ta branche"+"\n"+"Par exemple: https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog/ bar runBugFix");
+		}
 		if(check_all_url(args[0])){
 			com.CloneRep(args[0]);
 		}else{
