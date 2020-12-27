@@ -19,6 +19,7 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
 public class CliApplication {
+	public Display disp;
 	public static void recursiveDelete(File file) {
 		if (!file.exists())
 			return;
@@ -228,19 +229,23 @@ public class CliApplication {
 			com.CloneRep("https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog/");
 		}
 		if(com.noError){
+			disp.goodLink();
 			com.getCommit("all");
 			com.printCommit();
 			LinkedHashMap<String , Integer> InfoCom =  com.gethmap();
 			getResultAsHtmlCycleDiagram(InfoCom);
+			disp.setVisible(false);
+			disp.dispose();
 			if(Desktop.isDesktopSupported()){
 				Desktop.getDesktop().open(indexhtml);
+
 			}
 		}
 		else
 			System.out.println("Error while reading the link");
+			disp.linkError();
 
 	}
-
 	public static void main(String[] args) throws IOException, GitAPIException, CustomException {
 		@SuppressWarnings("unchecked")
 		String folder = "datagit";
@@ -256,6 +261,8 @@ public class CliApplication {
 			disp.getBtn().addActionListener((event) -> {
 			try{
 				work(disp);
+				//disp.setVisible(false);
+				//disp.dispose();
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (CustomException e) {
