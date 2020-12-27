@@ -216,6 +216,25 @@ public class CliApplication {
     		super(message);
 		  }
 	}
+		private static void work (Display disp) throws IOException, GitAPIException, CustomException  {
+		String folder = "datagit";
+		recursiveDelete(new File(folder));
+		File indexhtml= new File("index.html");
+		indexhtml.delete();
+		Commit com = new Commit("test","test","00/00","0");
+		if(check_all_url(disp.getTextEdit().getText())){
+			com.CloneRep(disp.getTextEdit().getText());
+		}else{
+			com.CloneRep("https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog/");
+		}
+		com.getCommit("all");
+		com.printCommit();
+		LinkedHashMap<String , Integer> InfoCom =  com.gethmap();
+		getResultAsHtmlCycleDiagram(InfoCom);
+		if(Desktop.isDesktopSupported()){
+			Desktop.getDesktop().open(indexhtml);
+		}
+	}
 
 	public static void main(String[] args) throws IOException, GitAPIException, CustomException {
 		@SuppressWarnings("unchecked")
@@ -227,6 +246,20 @@ public class CliApplication {
 		if (args == null) {
 			throw new CustomException("Rentre 3 arguments ...");
 		}else if (args.length <= 0) {
+					Display disp = new Display();
+		disp.setVisible(true);
+		disp.getBtn().addActionListener((event) -> {
+			try{
+				work(disp);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (CustomException e) {
+				e.printStackTrace();
+			} catch (GitAPIException e) {
+				e.printStackTrace();
+			}
+
+		});
 			return;
 		}else if(args.length < 3){
 			throw new CustomException("Rentre un lien puis un type de diagramme et ensuite ta branche"+"\n"+"Par exemple: https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog/ bar runBugFix");
@@ -242,7 +275,7 @@ public class CliApplication {
 			try {
 				com.getCommit(args[2]);
 			}catch (NullPointerException e) {
-				System.out.print("La branch en argument n'est pas valide ");
+				System.out.print("La branche en argument n'est pas valide ");
 			}
 		}
 		com.printCommit();
