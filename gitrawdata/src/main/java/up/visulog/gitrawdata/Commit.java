@@ -24,6 +24,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 
 public class Commit {
     // AD: FIXME: (some of) these fields could have more specialized types than String
+    public boolean noError = true;
     public final String id;
     public final String date;
     public final String author;
@@ -50,8 +51,7 @@ public class Commit {
                     .setDirectory(Paths.get(cloneDirectoryPath).toFile())
                     .call();
         } catch (GitAPIException e) {
-            System.out.println("Exception occurred while cloning repo");
-            e.printStackTrace();
+            noError = false;
         }
     }
 
@@ -184,4 +184,3 @@ public class Commit {
 
 
 }
- 
