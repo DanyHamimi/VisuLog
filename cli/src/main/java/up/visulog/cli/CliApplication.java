@@ -227,13 +227,18 @@ public class CliApplication {
 		}else{
 			com.CloneRep("https://gaufre.informatique.univ-paris-diderot.fr/filipsudol/visulog/");
 		}
-		com.getCommit("all");
-		com.printCommit();
-		LinkedHashMap<String , Integer> InfoCom =  com.gethmap();
-		getResultAsHtmlCycleDiagram(InfoCom);
-		if(Desktop.isDesktopSupported()){
-			Desktop.getDesktop().open(indexhtml);
+		if(com.noError){
+			com.getCommit("all");
+			com.printCommit();
+			LinkedHashMap<String , Integer> InfoCom =  com.gethmap();
+			getResultAsHtmlCycleDiagram(InfoCom);
+			if(Desktop.isDesktopSupported()){
+				Desktop.getDesktop().open(indexhtml);
+			}
 		}
+		else
+			System.out.println("Error while reading the link");
+
 	}
 
 	public static void main(String[] args) throws IOException, GitAPIException, CustomException {
@@ -246,9 +251,9 @@ public class CliApplication {
 		if (args == null) {
 			throw new CustomException("Rentre 3 arguments ...");
 		}else if (args.length <= 0) {
-					Display disp = new Display();
-		disp.setVisible(true);
-		disp.getBtn().addActionListener((event) -> {
+			Display disp = new Display();
+			disp.setVisible(true);
+			disp.getBtn().addActionListener((event) -> {
 			try{
 				work(disp);
 			} catch (IOException e) {
