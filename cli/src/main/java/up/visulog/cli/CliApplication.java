@@ -239,7 +239,11 @@ public class CliApplication {
 		if(args[2].equals("all")){
 			com.getCommit("all");
 		}else{
-			com.getCommit(args[2]);
+			try {
+				com.getCommit(args[2]);
+			}catch (NullPointerException e) {
+				System.out.print("La branch en argument n'est pas valide ");
+			}
 		}
 		com.printCommit();
 		LinkedHashMap<String , Integer> InfoCom =  com.gethmap();
