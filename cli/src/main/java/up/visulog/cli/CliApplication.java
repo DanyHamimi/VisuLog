@@ -218,6 +218,7 @@ public class CliApplication {
 	}
 
 	public static void main(String[] args) throws IOException, GitAPIException, CustomException {
+		@SuppressWarnings("unchecked")
 		String folder = "datagit";
 		recursiveDelete(new File(folder));
 		File indexhtml= new File("index.html");
